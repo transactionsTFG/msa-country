@@ -32,10 +32,10 @@ public class DomainEventConsumerCountryService implements MessageListener{
         try {
             if(msg instanceof TextMessage m) {
                 Event event = this.gson.fromJson(m.getText(), Event.class);
-                LOGGER.info("Recibido en Cola {}, Evento Id: {}, EventResponse: {}", JMSQueueNames.AGENCY_COUNTRY_SERVICE_QUEUE, event.getEventId(), event.getPayload());
+                LOGGER.info("Recibido en Cola {}, Evento Id: {}, EventResponse: {}", JMSQueueNames.AGENCY_COUNTRY_SERVICE_QUEUE, event.getEventId(), event.getData());
                 EventHandler commandHandler = this.eventHandlerRegistry.getHandler(event.getEventId());
                 if(commandHandler != null)
-                    commandHandler.handleCommand(event.getPayload());
+                    commandHandler.handleCommand(event.getData());
             }
         } catch (Exception e) {
             LOGGER.error("Error al recibir el mensaje: {}", e.getMessage());

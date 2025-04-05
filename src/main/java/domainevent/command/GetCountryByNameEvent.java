@@ -7,7 +7,6 @@ import business.country.CountryDTO;
 import domainevent.command.handler.BaseHandler;
 import domainevent.command.handler.EventHandler;
 import msa.commons.event.EventId;
-import msa.commons.event.EventResponse;
 import msa.commons.microservices.country.qualifier.GetCountryByNameQualifier;
 
 @Stateless
@@ -16,10 +15,10 @@ import msa.commons.microservices.country.qualifier.GetCountryByNameQualifier;
 public class GetCountryByNameEvent extends BaseHandler {
 
     @Override
-    public void handleCommand(EventResponse eventResponse) {
-        String nameCountry = (String) eventResponse.getData();
+    public void handleCommand(Object data) {
+        String nameCountry = (String) data;
         CountryDTO c = this.countryServices.getCountryByName(nameCountry);
-        this.jmsEventPublisher.publish(EventId.GET_COUNTRY_BY_NAME, EventResponse.success(c));
+        this.jmsEventPublisher.publish(EventId.GET_COUNTRY_BY_NAME, c);
     }
     
 }
