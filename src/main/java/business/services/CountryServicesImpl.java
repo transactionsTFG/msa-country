@@ -18,6 +18,7 @@ public class CountryServicesImpl implements CountryServices {
     @Override
     public CountryDTO getCountryById(long idCountry) {
         Country c = this.entityManager.find(Country.class, idCountry, LockModeType.OPTIMISTIC);
+        if(c == null) return null;
         return CountryMapper.INSTANCE.entityToDto(c);
     }
 

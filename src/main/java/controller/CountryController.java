@@ -24,6 +24,12 @@ public class CountryController {
         return countryServices.getCountryByName(countryName);
     }
 
+    @GET
+    @Path("/{countryId}")
+    public CountryDTO getCountryById(@PathParam("countryId") Long countryId) {
+        return countryServices.getCountryById(countryId);
+    }
+
     @EJB
     public void setCountryServices(CountryServices countryServices) {
         this.countryServices = countryServices;
